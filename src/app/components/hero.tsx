@@ -1,204 +1,220 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { FaLinkedin, FaGithub, FaEnvelope, FaPhone } from 'react-icons/fa';
-import { HiArrowDown } from 'react-icons/hi';
+import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
+import Image from 'next/image';
+
+const techStack = [
+  { name: 'TYPESCRIPT', icon: 'terminal' },
+  { name: 'REACT NATIVE', icon: 'smartphone' },
+  { name: 'EXPO', icon: 'rocket_launch' },
+  { name: 'NEXT.JS', icon: 'bolt' },
+  { name: 'FIREBASE', icon: 'database' },
+  { name: 'REDUX', icon: 'sync' },
+  { name: 'OPENAI', icon: 'psychology' },
+  { name: 'TAILWIND', icon: 'brush' },
+];
 
 export default function Hero() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.15
-      }
-    }
-  };
+  const imgWrapRef = useRef<HTMLDivElement>(null);
 
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        damping: 15,
-        stiffness: 100
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      const x = (e.clientX - window.innerWidth / 2) / 50;
+      const y = (e.clientY - window.innerHeight / 2) / 50;
+      if (imgWrapRef.current) {
+        imgWrapRef.current.style.transform = `translate(${x}px, ${y}px) rotate(${x / 10}deg)`;
       }
-    }
-  };
+    };
+    window.addEventListener('mousemove', onMove);
+    return () => window.removeEventListener('mousemove', onMove);
+  }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950">
-      
-      {/* Elegant animated background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Subtle gradient orbs */}
+    <section className="pt-[120px] pb-section">
+      <div className="max-w-7xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-[70vh]">
+        <div className="lg:col-span-7 flex flex-col items-start gap-6 z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-1 px-3 py-1 bg-tertiary/10 border border-tertiary/20 rounded-full text-tertiary font-label text-[12px] font-bold tracking-[0.1em] uppercase"
+          >
+            <span className="w-2 h-2 rounded-full bg-tertiary animate-pulse" />
+            Available for projects
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="font-display text-[40px] sm:text-[56px] lg:text-[64px] font-extrabold leading-[1.1] tracking-[-0.02em] text-on-surface"
+          >
+            <span className="block text-tertiary text-glow mb-1">Nisha Raju</span>
+            Building <span className="text-tertiary">Tomorrow</span> with Code &amp;
+            Creativity
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="font-body text-lg text-on-surface-variant max-w-xl leading-relaxed"
+          >
+            Software Engineer with{' '}
+            <span className="text-tertiary font-semibold">2+ years</span> shipping
+            production{' '}
+            <span className="text-tertiary font-semibold">React Native</span> apps
+            across iOS and Android in healthcare, social, and fintech domains.
+            Skilled in TypeScript, Redux Toolkit, Firebase, and CI/CD with Expo/EAS
+            — plus{' '}
+            <span className="text-secondary font-semibold">AI API integration</span>{' '}
+            and real-time services.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-wrap gap-6 mt-3"
+          >
+            <a
+              href="#projects"
+              className="bg-tertiary text-on-tertiary px-8 py-4 rounded-lg font-bold text-lg neo-brutalist-shadow flex items-center gap-3 transition-all group"
+            >
+              View My Work
+              <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
+                arrow_forward
+              </span>
+            </a>
+            <a
+              href="/Nisha_Raju_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border border-secondary text-secondary px-8 py-4 rounded-lg font-bold text-lg hover:bg-secondary/10 transition-colors flex items-center gap-3"
+            >
+              Download Resume
+              <span className="material-symbols-outlined">download</span>
+            </a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="flex gap-3 mt-2"
+          >
+            {[
+              {
+                href: 'https://www.linkedin.com/in/nisha-raju/',
+                icon: FaLinkedin,
+                label: 'LinkedIn',
+              },
+              {
+                href: 'https://github.com/NishaRaju0809',
+                icon: FaGithub,
+                label: 'GitHub',
+              },
+              {
+                href: 'mailto:nisharaju961@gmail.com',
+                icon: FaEnvelope,
+                label: 'Email',
+              },
+            ].map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target={social.href.startsWith('http') ? '_blank' : undefined}
+                rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                aria-label={social.label}
+                className="glass-panel p-3 rounded-xl text-on-surface-variant hover:text-tertiary transition-colors"
+              >
+                <social.icon className="text-xl" />
+              </a>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45 }}
+            className="grid grid-cols-3 gap-3 sm:gap-6 w-full max-w-lg mt-12"
+          >
+            {[
+              { value: '2+', label: 'Years' },
+              { value: 'iOS · Android', label: 'Platforms' },
+              { value: 'AI', label: 'Integrations' },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className="glass-panel p-3 sm:p-4 rounded-xl text-center flex flex-col items-center justify-center min-h-[88px]"
+              >
+                <div className="font-headline text-sm sm:text-lg font-semibold text-tertiary leading-snug">
+                  {stat.value}
+                </div>
+                <div className="font-code text-[10px] sm:text-xs opacity-70 uppercase tracking-widest mt-1">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
         <motion.div
-          className="absolute top-1/4 -left-20 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-indigo-400/20 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 -right-20 w-96 h-96 bg-gradient-to-br from-indigo-400/20 to-purple-400/20 rounded-full blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
-        />
-        
-        {/* Grid overlay for depth */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8882_1px,transparent_1px),linear-gradient(to_bottom,#8882_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_110%)]" />
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.25 }}
+          className="lg:col-span-5 relative flex justify-center items-center"
+        >
+          <div className="relative w-full aspect-square max-w-md">
+            <div className="absolute inset-0 bg-tertiary/20 rounded-full blur-[100px] animate-pulse" />
+            <div className="absolute -top-10 -right-10 glass-panel p-6 rounded-xl rotate-12 z-0 hidden md:block">
+              <div className="font-code text-sm text-tertiary">
+                {'<div class="future">'}
+              </div>
+            </div>
+            <div className="absolute -bottom-5 -left-10 glass-panel p-6 rounded-xl -rotate-6 z-0 hidden md:block">
+              <div className="font-code text-sm text-secondary">
+                {"import { magic } from 'ui'"}
+              </div>
+            </div>
+            <div className="relative z-10 w-full h-full flex items-center justify-center">
+              <div
+                ref={imgWrapRef}
+                className="relative w-full h-full transition-transform duration-300"
+              >
+                <Image
+                  src="/images/illustrations/hero-dev.png"
+                  alt="Developer illustration"
+                  fill
+                  priority
+                  className="object-contain drop-shadow-[0_0_40px_rgba(113,216,200,0.25)]"
+                />
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
-      {/* Main content */}
-      <motion.div
-        className="relative z-10 max-w-5xl mx-auto text-center"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {/* Greeting badge */}
-        <motion.div
-          className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200 dark:border-slate-700 shadow-lg"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-            Available for new opportunities
-          </span>
-        </motion.div>
-
-        {/* Name with elegant reveal */}
-        <motion.h1
-          className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
-        >
-          <span className="bg-gradient-to-r from-slate-900 via-indigo-900 to-slate-900 dark:from-white dark:via-indigo-200 dark:to-white bg-clip-text text-transparent">
-            Nisha Raju
-          </span>
-        </motion.h1>
-
-        {/* Title with underline effect */}
-        <motion.div className="mb-6">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-slate-700 dark:text-slate-300 mb-2">
-            Software Engineer
-          </h2>
-          <motion.div
-            className="h-1 w-24 mx-auto bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"
-            initial={{ width: 0 }}
-            animate={{ width: 96 }}
-            transition={{ delay: 1, duration: 0.8 }}
-          />
-        </motion.div>
-
-       
-       <motion.p
-  className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed"
->
-  Results-driven <span className="font-semibold text-indigo-600 dark:text-indigo-400">React Native</span> and <span className="font-semibold text-indigo-600 dark:text-indigo-400">Web Developer</span> with 3+ years of experience building high-performance mobile and web applications using React Native, React.js, and Next.js. Achieved <span className="font-semibold text-indigo-600 dark:text-indigo-400">99.8% crash-free rates</span> and over <span className="font-semibold text-indigo-600 dark:text-indigo-400">10K+ downloads</span> across published apps.
-</motion.p>
-
-
-        {/* Social links with hover effects */}
-        <motion.div
-          className="flex justify-center gap-4 mb-12"
-        >
-          {[
-            { href: 'https://www.linkedin.com/in/nisha-raju/', icon: FaLinkedin, label: 'LinkedIn' },
-            { href: 'https://github.com/NishaRaju0809', icon: FaGithub, label: 'GitHub' },
-            { href: 'mailto:nisharaju961@gmail.com', icon: FaEnvelope, label: 'Email' },
-          ].map((social, index) => (
-            <motion.a
-              key={index}
-              href={social.href}
-              target={social.href.startsWith('http') ? '_blank' : undefined}
-              rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className="group relative p-4 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200 dark:border-slate-700 shadow-lg hover:shadow-xl transition-all duration-300"
-              whileHover={{ y: -5, scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label={social.label}
-            >
-              <social.icon className="text-2xl text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" />
-              
-              {/* Tooltip */}
-              <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-slate-900 dark:bg-slate-700 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                {social.label}
-              </span>
-            </motion.a>
+      <div className="mt-section overflow-hidden py-12 bg-surface-container-lowest/50 backdrop-blur-sm border-y border-secondary/10">
+        <div className="flex whitespace-nowrap gap-20 animate-marquee items-center opacity-50 hover:opacity-100 transition-opacity">
+          {[0, 1].map((copy) => (
+            <div key={copy} className="flex gap-20 items-center">
+              {techStack.map((tech) => (
+                <span
+                  key={`${copy}-${tech.name}`}
+                  className="font-label text-2xl font-bold tracking-[0.1em] flex items-center gap-3 text-on-surface"
+                >
+                  <span className="material-symbols-outlined text-tertiary">
+                    {tech.icon}
+                  </span>
+                  {tech.name}
+                </span>
+              ))}
+            </div>
           ))}
-        </motion.div>
-
-        {/* CTA Buttons */}
-        <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-        >
-          <motion.a
-            href="#contact"
-            className="group relative px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              Get In Touch
-              <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                →
-              </motion.span>
-            </span>
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600"
-              initial={{ x: '100%' }}
-              whileHover={{ x: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.a>
-
-          <motion.a
-            href="#projects"
-            className="px-8 py-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm text-slate-700 dark:text-slate-300 font-semibold rounded-2xl border-2 border-slate-300 dark:border-slate-600 hover:border-indigo-500 dark:hover:border-indigo-500 shadow-lg hover:shadow-xl transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            View Projects
-          </motion.a>
-        </motion.div>
-      </motion.div>
-
-      {/* Elegant scroll indicator */}
-      <motion.a
-        href="#about"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5, duration: 0.5 }}
-      >
-        <motion.div
-          className="flex flex-col items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <span className="text-sm font-medium">Scroll to explore</span>
-          <HiArrowDown className="text-xl" />
-        </motion.div>
-      </motion.a>
+        </div>
+      </div>
     </section>
   );
 }

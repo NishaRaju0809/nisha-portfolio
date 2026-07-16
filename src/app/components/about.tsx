@@ -1,263 +1,229 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { FiAward, FiUsers, FiTrendingUp, FiStar } from "react-icons/fi";
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import {
+  SiHtml5,
+  SiCss,
+  SiJavascript,
+  SiExpo,
+  SiReact,
+  SiTypescript,
+  SiNodedotjs,
+  SiTailwindcss,
+} from 'react-icons/si';
+
+const techTiles = [
+  {
+    Icon: SiReact,
+    label: 'React',
+    accent: 'mint' as const,
+    delay: '0s',
+    iconColor: '#61DAFB',
+  },
+  {
+    Icon: SiReact,
+    label: 'React Native',
+    accent: 'lavender' as const,
+    delay: '0.2s',
+    iconColor: '#61DAFB',
+  },
+  {
+    Icon: SiJavascript,
+    label: 'JavaScript',
+    accent: 'mint' as const,
+    delay: '0.4s',
+    iconColor: '#F7DF1E',
+  },
+  {
+    Icon: SiTypescript,
+    label: 'TypeScript',
+    accent: 'lavender' as const,
+    delay: '0.6s',
+    iconColor: '#3178C6',
+  },
+  {
+    Icon: SiHtml5,
+    label: 'HTML',
+    accent: 'mint' as const,
+    delay: '0.8s',
+    iconColor: '#E34F26',
+  },
+  {
+    Icon: SiCss,
+    label: 'CSS',
+    accent: 'lavender' as const,
+    delay: '1s',
+    iconColor: '#1572B6',
+  },
+  {
+    Icon: SiNodedotjs,
+    label: 'Node.js',
+    accent: 'mint' as const,
+    delay: '1.2s',
+    iconColor: '#339933',
+  },
+  {
+    Icon: SiExpo,
+    label: 'Expo',
+    accent: 'lavender' as const,
+    delay: '1.4s',
+    iconColor: '#71d8c8',
+  },
+  {
+    Icon: SiTailwindcss,
+    label: 'Tailwind',
+    accent: 'mint' as const,
+    delay: '1.6s',
+    iconColor: '#06B6D4',
+  },
+];
 
 export default function About() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   const stats = [
-    {
-      icon: FiAward,
-      value: "10+",
-      label: "Production Apps",
-      color: "from-indigo-500 to-purple-500",
-    },
-    {
-      icon: FiUsers,
-      value: "1K+",
-      label: "Downloads",
-      color: "from-purple-500 to-pink-500",
-    },
-    {
-      icon: FiTrendingUp,
-      value: "99.8%",
-      label: "Crash-Free Rate",
-      color: "from-indigo-500 to-blue-500",
-    },
-    {
-      icon: FiStar,
-      value: "4.6+",
-      label: "Star Rating",
-      color: "from-purple-500 to-indigo-500",
-    },
+    { value: '2+', label: 'Years Experience' },
+    { value: 'iOS & Android', label: 'Shipped Apps' },
+    { value: 'AI + Realtime', label: 'Integrations' },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        damping: 15,
-        stiffness: 100,
-      },
-    },
-  };
-
   return (
-    <section
-      id="about"
-      ref={ref}
-      className="relative py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-950"
-    >
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section header */}
-          <motion.div
-          initial={{ opacity: 0, y: 30 }}
+    <section id="about" ref={ref} className="relative py-section px-gutter">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16"
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-            About Me
-          </h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full mb-6" />
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto px-4">
-            Passionate about building exceptional digital experiences
-          </p>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Image/Visual Section */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-indigo-500/20 to-purple-500/20 backdrop-blur-sm border border-slate-200 dark:border-slate-800">
-              {/* Gradient overlay with pattern */}
-              <img
-                src="/photo.jpeg"
-                alt="Nisha React Native Developer"
-                className="absolute inset-0 w-full h-full object-cover rounded-3xl opacity-90"
-              />
-
-              <motion.div
-                className="absolute top-8 right-8 w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl rotate-12 opacity-80"
-                animate={{
-                  y: [0, -20, 0],
-                  rotate: [12, 15, 12],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-              <motion.div
-                className="absolute bottom-8 left-8 w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl -rotate-12 opacity-80"
-                animate={{
-                  y: [0, 20, 0],
-                  rotate: [-12, -15, -12],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.5,
-                }}
-              />
+          <div className="order-2 lg:order-1 z-10">
+            <span className="font-label text-[12px] font-bold tracking-[0.1em] uppercase text-tertiary bg-tertiary/10 px-3 py-1 rounded-full inline-block mb-6">
+              The Developer Behind The Code
+            </span>
+            <h2 className="font-headline text-[32px] sm:text-[40px] font-bold mb-6 text-on-surface leading-tight">
+              Crafting logic into{' '}
+              <span className="text-secondary italic">vibrant experiences.</span>
+            </h2>
+            <div className="space-y-6 text-on-surface-variant text-lg leading-relaxed max-w-xl">
+              <p>
+                I&apos;m a{' '}
+                <span className="text-tertiary font-semibold">Software Engineer</span>{' '}
+                specializing in React Native, mobile, and web application
+                development, based in Hoshiarpur, India — with 2+ years shipping
+                production apps across iOS and Android.
+              </p>
+              <p>
+                I build products in{' '}
+                <span className="text-tertiary font-semibold">healthcare</span>,{' '}
+                <span className="text-tertiary font-semibold">social</span>, and{' '}
+                <span className="text-tertiary font-semibold">fintech</span>{' '}
+                domains using React Native, Expo, TypeScript, Redux Toolkit, and
+                Firebase — with experience integrating AI APIs and real-time
+                services like SignalR and Stream Chat.
+              </p>
+              <p>
+                I&apos;m proficient in modern delivery practices including{' '}
+                <span className="text-tertiary font-semibold">
+                  CI/CD with GitHub Actions &amp; EAS
+                </span>
+                , OTA updates, multilingual RTL/LTR support with i18next, and
+                polished UI motion with Reanimated &amp; Gesture Handler.
+              </p>
             </div>
 
-            {/* Decorative border */}
-            <div className="absolute -inset-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl opacity-20 blur-xl -z-10" />
-          </motion.div>
-
-          {/* Content Section */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="space-y-6"
-          >
-            <motion.p
-              className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed"
-            >
-              I'm a passionate{" "}
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">
-                Software Engineer
-              </span>{" "}
-              specializing in mobile and web application development, with over
-              3 years of experience crafting high-performance, user-centric
-              solutions.
-            </motion.p>
-
-            <motion.p
-              className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed"
-            >
-              My expertise lies in{" "}
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">
-                React Native
-              </span>
-              ,{" "}
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">
-                React.js
-              </span>
-              , and{" "}
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">
-                Next.js
-              </span>{" "}
-              development. I've successfully delivered 6+ production mobile
-              applications with exceptional crash-free rates, impressive user
-              ratings, and web experiences optimized for performance and
-              accessibility.
-            </motion.p>
-
-            <motion.p
-              className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed"
-            >
-              I'm proficient in modern development practices including{" "}
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">
-                CI/CD pipelines
-              </span>
-              ,{" "}
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">
-                state management
-              </span>{" "}
-              with Redux,{" "}
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">
-                RESTful API
-              </span>{" "}
-              integration, and{" "}
-              <span className="font-semibold text-indigo-600 dark:text-indigo-400">
-                real-time communication
-              </span>{" "}
-              systems. I thrive in collaborative environments and continuously
-              explore emerging technologies to build seamless cross-platform
-              experiences.
-            </motion.p>
-
-            {/* CTA Button */}
-            <motion.div>
-              <motion.a
-                href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Let's Work Together
-                <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  →
-                </motion.span>
-              </motion.a>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Stats Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              className="group relative p-6 rounded-2xl bg-white dark:bg-slate-800 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 overflow-hidden"
-              whileHover={{ y: -8, scale: 1.02 }}
-            >
-              {/* Gradient background on hover */}
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
-              />
-
-              <div className="relative z-10">
-                <div
-                  className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${stat.color} text-white mb-4 shadow-lg group-hover:shadow-xl transition-shadow`}
-                >
-                  <stat.icon className="text-2xl" />
+            <div className="mt-12 flex gap-6">
+              <div className="flex flex-col items-center">
+                <div className="w-16 h-16 rounded-full glass-panel flex items-center justify-center neo-brutal-shadow-mint mb-3">
+                  <span className="material-symbols-outlined text-tertiary">code</span>
                 </div>
-
-                <h3 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-2">
-                  {stat.value}
-                </h3>
-
-                <p className="text-sm text-slate-600 dark:text-slate-400">
-                  {stat.label}
-                </p>
+                <span className="font-label text-[12px] font-bold tracking-[0.1em] uppercase">
+                  Craftsman
+                </span>
               </div>
+              <div className="flex flex-col items-center">
+                <div className="w-16 h-16 rounded-full glass-panel flex items-center justify-center neo-brutal-shadow-lavender mb-3">
+                  <span className="material-symbols-outlined text-secondary">
+                    architecture
+                  </span>
+                </div>
+                <span className="font-label text-[12px] font-bold tracking-[0.1em] uppercase">
+                  Architect
+                </span>
+              </div>
+            </div>
 
-              {/* Decorative corner */}
-              <div
-                className={`absolute -bottom-8 -right-8 w-24 h-24 bg-gradient-to-br ${stat.color} opacity-5 rounded-full blur-2xl group-hover:opacity-20 transition-opacity duration-300`}
-              />
-            </motion.div>
+            <div className="mt-12 flex flex-wrap gap-3">
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center gap-2 h-12 bg-tertiary text-on-tertiary font-bold px-6 rounded-lg neo-brutalist-shadow transition-all"
+              >
+                Let&apos;s Work Together
+                <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+              </a>
+              <a
+                href="/Nisha_Raju_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 h-12 bg-secondary text-on-secondary font-bold px-6 rounded-lg neo-brutalist-shadow transition-all"
+              >
+                Resume
+                <span className="material-symbols-outlined text-[20px]">download</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="order-1 lg:order-2 relative flex justify-center items-center min-h-[420px] md:min-h-[500px] z-10">
+            <div className="glass-panel w-full h-full rounded-xl relative overflow-hidden flex flex-wrap content-center justify-center gap-4 p-6">
+              {techTiles.map((tech) => (
+                <div
+                  key={tech.label}
+                  className={`float-anim p-3 glass-panel rounded-xl flex flex-col items-center w-28 h-28 justify-center group hover:scale-110 transition-transform cursor-pointer ${
+                    tech.accent === 'mint'
+                      ? 'neo-brutal-shadow-mint'
+                      : 'neo-brutal-shadow-lavender'
+                  }`}
+                  style={{ animationDelay: tech.delay }}
+                >
+                  <div className="w-10 h-10 shrink-0 mb-2 flex items-center justify-center">
+                    <tech.Icon
+                      size={40}
+                      color={tech.iconColor}
+                      className="shrink-0"
+                    />
+                  </div>
+                  <span
+                    className={`font-code text-xs text-center leading-tight ${
+                      tech.accent === 'mint' ? 'text-tertiary' : 'text-secondary'
+                    }`}
+                  >
+                    {tech.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-section"
+        >
+          {stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="glass-panel p-6 rounded-xl text-center neo-brutal-shadow-mint hover:-translate-y-1 transition-transform"
+            >
+              <div className="font-headline text-3xl font-bold text-tertiary mb-1">
+                {stat.value}
+              </div>
+              <div className="font-code text-sm text-on-surface-variant">
+                {stat.label}
+              </div>
+            </div>
           ))}
         </motion.div>
       </div>
