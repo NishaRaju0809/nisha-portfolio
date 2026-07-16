@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
 const navItems = [
@@ -16,83 +16,116 @@ const navItems = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState('Home');
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      const sections = navItems
+        .filter((item) => item.href.startsWith('#') && item.href.length > 1)
+        .map((item) => ({
+          name: item.name,
+          el: document.querySelector(item.href),
+        }));
+
+      let current = 'Home';
+      for (const section of sections) {
+        if (!section.el) continue;
+        const rect = section.el.getBoundingClientRect();
+        if (rect.top <= 120) current = section.name;
+      }
+      setActive(current);
     };
+
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${
         scrolled
-          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md'
-          : 'bg-transparent'
+          ? 'bg-surface/80 backdrop-blur-md border-secondary/20 shadow-sm'
+          : 'bg-surface/50 backdrop-blur-sm border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <motion.a
-            href="#"
-            className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+      <div className="flex justify-between items-center px-gutter py-3 max-w-7xl mx-auto">
+        <a href="#" className="h-10 md:h-12 flex items-center" aria-label="Nisha Raju Home">
+          <Image
+            src="/images/logo.png"
+            alt="Nisha Raju Logo"
+            width={180}
+            height={48}
+            className="h-full w-auto object-contain"
+            priority
+          />
+        </a>
+
+        <div className="hidden md:flex items-center gap-12">
+          {navItems.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className={`font-body text-base transition-colors ${
+                active === item.name
+                  ? 'text-tertiary font-bold border-b-2 border-tertiary pb-1'
+                  : 'text-on-surface-variant hover:text-tertiary'
+              }`}
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-3">
+          <a
+            href="/Nisha_Raju_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex bg-tertiary text-on-tertiary font-bold px-6 py-1 rounded-lg neo-brutalist-shadow hover:translate-x-0.5 hover:translate-y-0.5 transition-all text-sm"
           >
-            NR
-          </motion.a>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex space-x-8">
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors font-medium"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                {item.name}
-              </motion.a>
-            ))}
-          </div>
-
-          {/* Mobile Menu Button */}
+            Resume
+          </a>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+            className="md:hidden text-on-surface-variant hover:text-tertiary transition-colors p-2"
+            aria-label="Toggle menu"
           >
-            {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+            {isOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700"
-        >
-          <div className="px-2 pt-2 pb-3 space-y-1">
+        <div className="md:hidden bg-surface-container border-t border-secondary/10">
+          <div className="px-gutter py-6 space-y-1">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="block px-3 py-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                className={`block px-3 py-2 rounded-lg transition-colors ${
+                  active === item.name
+                    ? 'text-tertiary bg-tertiary/10 font-bold'
+                    : 'text-on-surface-variant hover:text-tertiary hover:bg-surface-container-high'
+                }`}
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
               </a>
             ))}
+            <a
+              href="/Nisha_Raju_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsOpen(false)}
+              className="mt-3 block text-center bg-tertiary text-on-tertiary font-bold px-6 py-3 rounded-lg neo-brutalist-shadow"
+            >
+              Download Resume
+            </a>
           </div>
-        </motion.div>
+        </div>
       )}
     </nav>
   );

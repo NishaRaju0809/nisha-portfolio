@@ -1,66 +1,70 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import {
   SiReact,
   SiJavascript,
   SiTypescript,
-  SiNodedotjs,
   SiNextdotjs,
   SiTailwindcss,
-  SiMongodb,
   SiGit,
   SiFigma,
   SiRedux,
   SiFirebase,
-  SiPostman,
+  SiExpo,
 } from 'react-icons/si';
-import { FiCode, FiDatabase, FiTool, FiSmartphone } from 'react-icons/fi';
+import { FiCode, FiTool, FiSmartphone, FiCpu } from 'react-icons/fi';
+import { MdOutlineHub } from 'react-icons/md';
 
 const skillCategories = [
   {
     title: 'Mobile Development',
     icon: FiSmartphone,
-    color: 'from-indigo-500 to-blue-500',
+    accent: 'mint',
     skills: [
       { name: 'React Native', icon: SiReact },
-      { name: 'Redux', icon: SiRedux },
-      { name: 'TypeScript', icon: SiTypescript },
-      { name: 'JavaScript', icon: SiJavascript },
+      { name: 'Expo / EAS', icon: SiExpo },
+      { name: 'Reanimated', icon: SiReact },
+      { name: 'Gesture Handler', icon: SiReact },
     ],
   },
   {
     title: 'Frontend Development',
     icon: FiCode,
-    color: 'from-purple-500 to-pink-500',
+    accent: 'lavender',
     skills: [
+      { name: 'TypeScript', icon: SiTypescript },
+      { name: 'JavaScript', icon: SiJavascript },
       { name: 'React.js', icon: SiReact },
       { name: 'Next.js', icon: SiNextdotjs },
       { name: 'Tailwind CSS', icon: SiTailwindcss },
-      { name: 'TypeScript', icon: SiTypescript },
     ],
   },
   {
-    title: 'Backend & Database',
-    icon: FiDatabase,
-    color: 'from-emerald-500 to-teal-500',
+    title: 'State, Backend & Integrations',
+    icon: MdOutlineHub,
+    accent: 'mint',
     skills: [
-      { name: 'Node.js', icon: SiNodedotjs },
-      { name: 'MongoDB', icon: SiMongodb },
+      { name: 'Redux Toolkit', icon: SiRedux },
       { name: 'Firebase', icon: SiFirebase },
-      { name: 'REST APIs', icon: SiPostman },
+      { name: 'REST APIs', icon: FiCode },
+      { name: 'SignalR', icon: MdOutlineHub },
+      { name: 'Stream Chat', icon: MdOutlineHub },
+      { name: 'OpenAI API', icon: FiCpu },
     ],
   },
   {
-    title: 'Tools & Others',
+    title: 'DevOps & Tools',
     icon: FiTool,
-    color: 'from-orange-500 to-red-500',
+    accent: 'lavender',
     skills: [
-      { name: 'Git & GitHub', icon: SiGit },
+      { name: 'GitHub Actions', icon: SiGit },
+      { name: 'EAS / OTA', icon: SiExpo },
+      { name: 'Git', icon: SiGit },
       { name: 'Figma', icon: SiFigma },
-      { name: 'Postman', icon: SiPostman },
+      { name: 'i18next', icon: FiCode },
+      { name: 'Cursor / Copilot', icon: FiCpu },
     ],
   },
 ];
@@ -69,137 +73,130 @@ export default function Skills() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        damping: 15,
-        stiffness: 100,
-      },
-    },
-  };
-
   return (
     <section
       id="skills"
       ref={ref}
-      className="relative py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900"
+      className="relative py-section px-gutter bg-surface-container-lowest/40"
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section header */}
+      <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-section"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-            Skills & Expertise
+          <h2 className="font-headline text-[32px] sm:text-[40px] font-bold mb-3 text-on-surface">
+            Hard Skills
           </h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full mb-6" />
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Technologies and tools I work with to build exceptional applications
+          <div className="w-24 h-1 bg-tertiary mx-auto neo-brutal-shadow-mint mb-3" />
+          <p className="text-lg text-on-surface-variant">
+            The technical building blocks of my workflow.
           </p>
         </motion.div>
 
-        {/* Skills categories grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="grid md:grid-cols-2 gap-8"
-        >
-          {skillCategories.map((category, categoryIndex) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {skillCategories.map((category, index) => (
             <motion.div
-              key={categoryIndex}
-              className="group relative p-8 rounded-3xl bg-white dark:bg-slate-800 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700"
+              key={category.title}
+              initial={{ opacity: 0, y: 24 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: index * 0.1 }}
+              className={`glass-panel p-6 md:p-8 rounded-xl ${
+                index === 0 || index === 2
+                  ? 'md:col-span-2 neo-brutal-shadow-mint'
+                  : 'neo-brutal-shadow-lavender'
+              }`}
             >
-              {/* Category header */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className={`p-4 rounded-2xl bg-gradient-to-br ${category.color} text-white shadow-lg group-hover:shadow-xl transition-shadow`}>
-                  <category.icon className="text-2xl" />
+              <div className="flex items-center gap-3 mb-6">
+                <div
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                    category.accent === 'mint'
+                      ? 'bg-tertiary/10 text-tertiary'
+                      : 'bg-secondary/10 text-secondary'
+                  }`}
+                >
+                  <category.icon className="text-xl" />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h3 className="font-headline text-2xl font-semibold text-on-surface">
                   {category.title}
                 </h3>
               </div>
 
-              {/* Skills grid */}
-              <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.div
-                    key={skillIndex}
-                    className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-300 group/skill min-w-0"
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{
-                      duration: 0.3,
-                      delay: categoryIndex * 0.1 + skillIndex * 0.05,
-                    }}
+              <div className="flex flex-wrap gap-3">
+                {category.skills.map((skill) => (
+                  <span
+                    key={skill.name}
+                    className={`inline-flex items-center gap-2 px-6 py-1 rounded-full font-code text-sm border ${
+                      category.accent === 'mint'
+                        ? 'bg-tertiary/10 text-tertiary border-tertiary/20'
+                        : 'bg-secondary/10 text-secondary border-secondary/20'
+                    }`}
                   >
-                    <div className={`p-1.5 sm:p-2 rounded-lg bg-gradient-to-br ${category.color} text-white shadow-md group-hover/skill:shadow-lg transition-shadow flex-shrink-0`}>
-                      <skill.icon className="text-base sm:text-lg" />
-                    </div>
-                    <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 truncate">
-                      {skill.name}
-                    </span>
-                  </motion.div>
+                    <skill.icon className="text-base" />
+                    {skill.name}
+                  </span>
                 ))}
               </div>
-
-              {/* Decorative corner gradient */}
-              <div className={`absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br ${category.color} opacity-5 rounded-full blur-2xl group-hover:opacity-10 transition-opacity duration-300`} />
             </motion.div>
           ))}
-        </motion.div>
 
-        {/* Additional info section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 grid md:grid-cols-2 gap-6"
-        >
-          {/* Learning card */}
-          <div className="p-8 rounded-3xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-200 dark:border-indigo-800 backdrop-blur-sm">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
-              Always Learning 📚
-            </h3>
-            <p className="text-slate-600 dark:text-slate-400">
-              Continuously expanding my skillset and staying updated with the latest technologies and best practices
-            </p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.4 }}
+            className="md:col-span-2 glass-panel p-6 md:p-8 rounded-xl neo-brutal-shadow-mint flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
+          >
+            <div className="max-w-md">
+              <h4 className="font-headline text-2xl font-semibold mb-3 text-on-surface">
+                Available for Collaboration
+              </h4>
+              <p className="text-on-surface-variant">
+                Open to React Native and full-stack roles — healthcare, social,
+                and fintech experience with AI and real-time systems.
+              </p>
+            </div>
+            <a
+              href="#contact"
+              className="bg-tertiary text-on-tertiary px-8 py-4 rounded-xl neo-brutal-shadow-mint font-bold hover:scale-105 active:scale-95 transition-all whitespace-nowrap"
+            >
+              Let&apos;s Talk
+            </a>
+          </motion.div>
 
-          {/* Experience card */}
-          <div className="p-8 rounded-3xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-200 dark:border-purple-800 backdrop-blur-sm">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
-              3+ Years Experience 💼
-            </h3>
-            <p className="text-slate-600 dark:text-slate-400">
-              Hands-on experience building production-ready applications with modern technologies
-            </p>
-          </div>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.45 }}
+            className="glass-panel p-6 md:p-8 rounded-xl neo-brutal-shadow-lavender"
+          >
+            <h4 className="font-headline text-2xl font-semibold mb-6 text-on-surface">
+              Also Comfortable With
+            </h4>
+            <ul className="space-y-3 text-on-surface-variant">
+              <li className="flex items-center gap-1">
+                <span className="material-symbols-outlined text-secondary text-lg">
+                  check_circle
+                </span>
+                Google Maps API &amp; Mixpanel
+              </li>
+              <li className="flex items-center gap-1">
+                <span className="material-symbols-outlined text-secondary text-lg">
+                  check_circle
+                </span>
+                WebSockets &amp; TestFlight / Play Console
+              </li>
+              <li className="flex items-center gap-1">
+                <span className="material-symbols-outlined text-secondary text-lg">
+                  check_circle
+                </span>
+                Redux Saga &amp; Context API
+              </li>
+            </ul>
+            <div className="mt-6 text-secondary font-label text-[12px] font-bold tracking-[0.1em] uppercase">
+              Vibe: Ship Fast, Stay Stable
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
