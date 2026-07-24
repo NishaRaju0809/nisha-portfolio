@@ -2,9 +2,9 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { FaCss3Alt } from 'react-icons/fa';
 import {
   SiHtml5,
-  SiCss3,
   SiJavascript,
   SiExpo,
   SiReact,
@@ -50,7 +50,7 @@ const techTiles = [
     iconColor: '#E34F26',
   },
   {
-    Icon: SiCss3,
+    Icon: FaCss3Alt,
     label: 'CSS',
     accent: 'lavender' as const,
     delay: '1s',
