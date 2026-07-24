@@ -44,13 +44,13 @@ const projects = [
       'Climate education platforms struggled with low retention and poor accessibility across language barriers and demographics.\n\nBuilt a gamified multilingual platform with quizzes, badges, push notifications, and i18next localization — achieving 80% user retention improvement.',
   },
   {
-    title: 'Theropay — Merchant & Admin Portal',
+    title: 'ShopEase',
     description:
-      'Merchant teams relied on fragmented workflows with no unified view of payment operations or role-based access control.\n\nDeveloped a role-based payment dashboard with secure approval workflows and real-time data handling — improving operational efficiency for merchant and admin teams.',
+      'ShopEase is an e-commerce web application built to provide users with a fast, secure, and seamless online shopping experience.\n\nKey Features:\n• User authentication and profile management.\n• Product listing with search and category filtering.\n• Add to cart, wishlist, and secure checkout using Stripe.\n• Firebase integration for backend and order data management.\n• Responsive design optimized for all devices.\n\nOutcome: Modern, responsive e-commerce platform with smooth payment integration and scalable architecture.',
     image: '/images/shopEase.png',
-    tags: ['React.js', 'Next.js', 'Tailwind CSS'],
-    category: 'WEB · FINTECH',
-    icon: 'payments',
+    tags: ['React.js', 'Tailwind CSS', 'Firebase', 'Stripe API'],
+    category: 'WEB · E-COMMERCE',
+    icon: 'shopping_bag',
     featured: false,
   },
   {
