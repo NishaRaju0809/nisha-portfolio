@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import {
   SiHtml5,
-  SiCss,
+  SiCss3,
   SiJavascript,
   SiExpo,
   SiReact,
@@ -50,7 +50,7 @@ const techTiles = [
     iconColor: '#E34F26',
   },
   {
-    Icon: SiCss,
+    Icon: SiCss3,
     label: 'CSS',
     accent: 'lavender' as const,
     delay: '1s',
