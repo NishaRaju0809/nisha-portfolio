@@ -84,7 +84,7 @@ export default function About() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   const stats = [
-    { value: '2+', label: 'Years Experience' },
+    { value: '3', label: 'Years Experience' },
     { value: 'iOS & Android', label: 'Shipped Apps' },
     { value: 'AI + Realtime', label: 'Integrations' },
   ];
@@ -111,7 +111,7 @@ export default function About() {
                 I&apos;m a{' '}
                 <span className="text-tertiary font-semibold">Software Engineer</span>{' '}
                 specializing in React Native, mobile, and web application
-                development, based in Hoshiarpur, India — with 2+ years shipping
+                development, based in Hoshiarpur, India — with 3 years shipping
                 production apps across iOS and Android.
               </p>
               <p>

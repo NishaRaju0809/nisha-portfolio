@@ -62,7 +62,7 @@ export default function Hero() {
             className="font-body text-lg text-on-surface-variant max-w-xl leading-relaxed"
           >
             Software Engineer with{' '}
-            <span className="text-tertiary font-semibold">2+ years</span> shipping
+            <span className="text-tertiary font-semibold">3 years</span> shipping
             production{' '}
             <span className="text-tertiary font-semibold">React Native</span> apps
             across iOS and Android in healthcare, social, and fintech domains.
@@ -141,7 +141,7 @@ export default function Hero() {
             className="grid grid-cols-3 gap-3 sm:gap-6 w-full max-w-lg mt-12"
           >
             {[
-              { value: '2+', label: 'Years' },
+              { value: '3', label: 'Years' },
               { value: 'iOS · Android', label: 'Platforms' },
               { value: 'AI', label: 'Integrations' },
             ].map((stat) => (

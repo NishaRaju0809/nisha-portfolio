@@ -3,75 +3,9 @@
 import { motion, useInView } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
-const projects = [
-  {
-    title: 'DriftHome',
-    tags: [
-      'React Native',
-      'Reanimated',
-      'Gesture Handler',
-      'SignalR',
-      'Google Maps',
-      'Next.js',
-    ],
-    image: '/images/drifthome.png',
-    demo: 'https://play.google.com/store/apps/details?id=com.laddr',
-    category: 'MOBILE',
-    icon: 'home',
-    featured: true,
-    description:
-      'Property discovery lacked engagement; users had no intuitive way to browse listings or communicate with hosts in real time.\n\nBuilt Tinder-style swipe property browsing with custom Reanimated animations and integrated SignalR real-time chat — boosting user engagement 80% and interaction rates 90%.',
-  },
-  {
-    title: 'Squad Accountability Tracker',
-    tags: ['React Native', 'Firebase', 'OpenAI API', 'Stream Chat'],
-    image: '/images/freelanz.png',
-    category: 'MOBILE · AI',
-    icon: 'groups',
-    featured: true,
-    description:
-      'Existing accountability apps lacked intelligent feedback loops and seamless group communication, reducing long-term user commitment.\n\nDeveloped AI-powered accountability features using OpenAI API; integrated Stream Chat for real-time group messaging and Firebase for cross-device sync — improving goal completion rates.',
-  },
-  {
-    title: 'EcoAgeing',
-    image: '/images/ecoageing.png',
-    category: 'MOBILE',
-    tags: ['React Native', 'Firebase', 'i18next', 'Push Notifications'],
-    demo: 'https://play.google.com/store/apps/details?id=com.ecoaging',
-    icon: 'eco',
-    description:
-      'Climate education platforms struggled with low retention and poor accessibility across language barriers and demographics.\n\nBuilt a gamified multilingual platform with quizzes, badges, push notifications, and i18next localization — achieving 80% user retention improvement.',
-  },
-  {
-    title: 'ShopEase',
-    description:
-      'ShopEase is an e-commerce web application built to provide users with a fast, secure, and seamless online shopping experience.\n\nKey Features:\n• User authentication and profile management.\n• Product listing with search and category filtering.\n• Add to cart, wishlist, and secure checkout using Stripe.\n• Firebase integration for backend and order data management.\n• Responsive design optimized for all devices.\n\nOutcome: Modern, responsive e-commerce platform with smooth payment integration and scalable architecture.',
-    image: '/images/shopEase.png',
-    tags: ['React.js', 'Tailwind CSS', 'Firebase', 'Stripe API'],
-    category: 'WEB · E-COMMERCE',
-    icon: 'shopping_bag',
-    featured: false,
-  },
-  {
-    title: 'Food Recipe App',
-    description:
-      'The Food Recipe App is a beautifully designed mobile application that allows users to explore, upload, and share their favorite recipes with a vibrant food community.\n\nKey Features:\n• User-Uploaded Recipes with images, ingredients, and step-by-step instructions.\n• Recipe Discovery and social sharing.\n• Secure login using Google and Facebook.\n• Firebase Firestore for recipe data and images.\n\nOutcome: Fully functional cross-platform mobile app with Firebase integration and social authentication.',
-    image: '/images/foodRecipe.png',
-    tags: ['React Native', 'Firebase', 'Google login', 'Dynamic linking'],
-    category: 'MOBILE',
-    icon: 'restaurant',
-  },
-  {
-    title: 'Speeching Arts',
-    description:
-      'Speeching Arts is a tourist assistance mobile application developed for Milan. Originally built with WordPress and converted into a mobile app using Appilix.\n\nProvides guides and recommendations for tourists, with WordPress CMS for easy content updates and a user-friendly navigation experience.',
-    image: '/images/speechingArts.png',
-    tags: ['WordPress', 'Appilix'],
-    category: 'MOBILE',
-    icon: 'explore',
-  },
-];
+import { projects } from '../../data/projects';
 
 function truncate(text: string, max = 160) {
   const flat = text.replace(/\n+/g, ' ').trim();
@@ -120,7 +54,7 @@ export default function Projects() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 pt-6">
           {projects.map((project, index) => (
             <motion.article
-              key={project.title}
+              key={project.slug}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.08 }}
@@ -128,21 +62,33 @@ export default function Projects() {
                 project.featured ? 'md:col-span-2 lg:col-span-1' : ''
               }`}
             >
-              <div className="absolute -top-6 -right-2 w-28 h-20 transform group-hover:-translate-y-1 transition-transform duration-500 z-20 rounded-lg overflow-hidden border border-secondary/20 shadow-lg bg-surface-container">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+              <Link
+                href={`/projects/${project.slug}`}
+                className="absolute -top-6 -right-2 z-20 block w-32 h-24 rounded-lg overflow-hidden border border-secondary/25 shadow-[0_12px_28px_-8px_rgba(0,0,0,0.55)] bg-surface-container transition-transform duration-500 group-hover:-translate-y-1"
+                aria-label={`View ${project.title} details`}
+              >
+                <span className="relative block h-full w-full">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    sizes="128px"
+                    className="object-cover"
+                  />
+                </span>
+              </Link>
 
-              <div className="mb-6 pr-16">
+              <div className="mb-6 pr-20">
                 <span className="font-label text-[12px] font-bold tracking-[0.1em] uppercase text-tertiary bg-tertiary/10 px-3 py-1 rounded mb-3 inline-block">
                   {project.category}
                 </span>
                 <h3 className="font-headline text-2xl font-semibold text-on-surface mb-1">
-                  {project.title}
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="hover:text-tertiary transition-colors"
+                  >
+                    {project.title}
+                  </Link>
                 </h3>
               </div>
 
@@ -161,32 +107,18 @@ export default function Projects() {
                 ))}
               </div>
 
-              {'demo' in project && project.demo ? (
-                <a
-                  className="brutalist-button inline-flex items-center gap-3 bg-tertiary text-on-primary font-bold px-6 py-3 rounded-lg w-full justify-center transition-all"
-                  href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <Link
+                href={`/projects/${project.slug}`}
+                className="brutalist-button inline-flex items-center gap-3 bg-tertiary text-on-primary font-bold px-6 py-3 rounded-lg w-full justify-center transition-all"
+              >
+                <span
+                  className="material-symbols-outlined"
+                  style={{ fontVariationSettings: "'FILL' 1" }}
                 >
-                  <span
-                    className="material-symbols-outlined"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    {project.icon}
-                  </span>
-                  View on Play Store
-                </a>
-              ) : (
-                <div className="brutalist-button inline-flex items-center gap-3 bg-secondary-container text-on-secondary-container font-bold px-6 py-3 rounded-lg w-full justify-center">
-                  <span
-                    className="material-symbols-outlined"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    {project.icon}
-                  </span>
-                  Case Study
-                </div>
-              )}
+                  {project.icon}
+                </span>
+                View project
+              </Link>
             </motion.article>
           ))}
         </div>

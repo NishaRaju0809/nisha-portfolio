@@ -19,7 +19,7 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   title: 'Nisha Raju - Software Engineer',
   description:
-    'Software Engineer with 2+ years shipping production React Native apps across iOS and Android in healthcare, social, and fintech domains.',
+    'Software Engineer with 3 years shipping production React Native apps across iOS and Android in healthcare, social, and fintech domains.',
   keywords: [
     'Nisha Raju',
     'Software Engineer',

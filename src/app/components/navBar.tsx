@@ -5,12 +5,12 @@ import Image from 'next/image';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
 const navItems = [
-  { name: 'Home', href: '#' },
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/#about' },
+  { name: 'Skills', href: '/#skills' },
+  { name: 'Experience', href: '/#experience' },
+  { name: 'Projects', href: '/#projects' },
+  { name: 'Contact', href: '/#contact' },
 ];
 
 export default function Navbar() {
@@ -23,11 +23,14 @@ export default function Navbar() {
       setScrolled(window.scrollY > 20);
 
       const sections = navItems
-        .filter((item) => item.href.startsWith('#') && item.href.length > 1)
-        .map((item) => ({
-          name: item.name,
-          el: document.querySelector(item.href),
-        }));
+        .filter((item) => item.href.includes('#'))
+        .map((item) => {
+          const hash = item.href.slice(item.href.indexOf('#'));
+          return {
+            name: item.name,
+            el: document.querySelector(hash),
+          };
+        });
 
       let current = 'Home';
       for (const section of sections) {
@@ -52,7 +55,7 @@ export default function Navbar() {
       }`}
     >
       <div className="flex justify-between items-center px-gutter py-3 max-w-7xl mx-auto">
-        <a href="#" className="h-10 md:h-12 flex items-center" aria-label="Nisha Raju Home">
+        <a href="/" className="h-10 md:h-12 flex items-center" aria-label="Nisha Raju Home">
           <Image
             src="/images/logo.png"
             alt="Nisha Raju Logo"
